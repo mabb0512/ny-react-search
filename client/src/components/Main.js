@@ -84,54 +84,41 @@ class Main extends Component {
 
   saveButton = (id) => {
     const searchArticleById = this.state.articles.find((res) => res._id === id);
-    console.log("searchArticleById: ", searchArticleById);
     const newArticle = {
       title: searchArticleById.headline.main, 
       date: searchArticleById.pub_date, 
       url: searchArticleById.web_url
     };
     API.saveArticle(newArticle)
-    .then(this.getArticlesDb());
+    .then(this.getArticlesDb()).then(this.renderArticles());
   }
 
   // When delete article button is clicked, remove article from db
   deleteButton = (id) => {
     API.deleteArticle(id)
-      .then(this.getArticlesDb());
+      .then(this.getArticlesDb()).then(this.renderArticles());
   }
 
   render() {
-    return <div className="main-container">
-        <div className="container">
+    return <div className="container">
           <div className="jumbotron">
             <h1 className="text-center">
-              <strong>New York Times Article Search</strong>
+              <strong>New York Times Article Scrubber</strong>
             </h1>
             <h2 className="text-center">
-              Search for and save articles of interest.
+              Search and save for later
             </h2>
           </div>
           <Search topicChange={this.topicChange} startYearChange={this.startYearChange} endYearChange={this.endYearChange} formSubmit={this.formSubmit} renderArticles={this.renderArticles} />
-          <div className="container">
             <div className="row">
-              <div className="col-lg-12">
-                <div className="panel panel-primary">
-                  <div className="panel-heading">
-                    <h3 className="panel-title">
-                      <strong>
-                        Saved Articles
-                      </strong>
-                    </h3>
-                  </div>
-                  <div className="panel-body">
-                    <ul className="list-group">{this.renderSaved()}</ul>
-                  </div>
-                </div>
+              <div className="col-12">
+                  <h3><strong>Saved Articles</strong></h3>
+                  <ul className="list-group">
+                    <div className="col-12">{this.renderSaved()}</div>
+                  </ul>
               </div>
             </div>
-          </div>
         </div>
-      </div>;
   }
 }
 

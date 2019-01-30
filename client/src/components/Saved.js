@@ -1,21 +1,14 @@
 import React from "react";
+import Title from "./Title";
 
 const Saved = props =>
-  <div className="container">
     <li className="list-group-item">
-      <h4>
-        <span>
-          <em>{props.title}</em>
-        </span>
-        <span className="btn-group pull-right">
-          <a href={props.url} target="_blank">
-            <button className="btn btn-default ">View Article</button>
-          </a>
-          <button className="btn btn-primary" onClick={() => props.deleteButton(props._id)}>Delete</button>
-        </span>
-      </h4>
-      <p>Date Published: {props.date}</p>
+      <div className="row">
+        <Title {...props}/>
+        <div className="col-2">
+          <button className="btn btn-danger float-right" onClick={() => props.deleteButton(props._id)}>Delete</button>
+        </div>
+      </div>
     </li>
-  </div>
 
 export default Saved;
